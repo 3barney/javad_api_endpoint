@@ -19,6 +19,15 @@ public class Address {
     private String country;
     private String line;
 
+    public Address(String type, String city, String country, String line) {
+        this.type = type;
+        this.city = city;
+        this.country = country;
+        this.line = line;
+    }
+
+    public Address() {}
+
     // We declare address to have a many-to-one relationship with Customer
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)

@@ -1,39 +1,28 @@
 package com.barney.delivery.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
+import java.util.List;
 
-@Entity
-@Table(name = "customers")
-public class Customer {
+public class CustomerForm {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 50)
     private String lastName;
 
-    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 50)
     private String firstName;
 
-    @NotNull
+    @NotBlank
+    @Size(min = 7, max = 50)
     private String phoneNumber;
 
-    @NotNull
-    @Column(unique = true)
+    @NotBlank
+    @Size(max = 60)
     @Email
     private String email;
 
-    public Customer(@NotNull String lastName, @NotNull String firstName, @NotNull String phoneNumber, @NotNull @Email String email) {
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-    }
-
-    public Customer() { }
+    private List<Address> address;
 
     public String getLastName() {
         return lastName;
@@ -41,10 +30,6 @@ public class Customer {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getFirstName() {
@@ -69,5 +54,13 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Address> getAddress() {
+        return address;
+    }
+
+    public void setAddress(List<Address> address) {
+        this.address = address;
     }
 }

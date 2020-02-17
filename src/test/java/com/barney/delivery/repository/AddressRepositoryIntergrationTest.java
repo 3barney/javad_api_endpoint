@@ -73,7 +73,7 @@ class AddressRepositoryIntergrationTest {
         Long addressId = addressList.get(0).getId();
         Long customerId = addressList.get(0).getCustomer().getId();
 
-        Optional<Address> found = addressRepository.findByIdAndCustomerId(addressId, customerId);
-        assertThat(found.isPresent());
+        Optional<Address> item = addressRepository.findByIdAndCustomerId(addressId, customerId);
+        assertThat(item.get().getId()).isEqualTo(customerId);
     }
 }
