@@ -26,6 +26,10 @@ public class Address {
     @JsonIgnore
     private Customer customer;
 
+    public Long getId() {
+        return id;
+    }
+
     public String getType() {
         return type;
     }

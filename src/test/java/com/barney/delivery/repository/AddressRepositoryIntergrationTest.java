@@ -11,13 +11,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class AddressRepositoryTest {
+class AddressRepositoryIntergrationTest {
 
     @Autowired
     private TestEntityManager testEntityManager;
@@ -48,5 +49,31 @@ class AddressRepositoryTest {
         assertThat(found.size()).isEqualTo(1);
         assertThat(found.get(0).getCustomer()).isNotNull();
         assertThat(found.get(0).getCustomer().getFirstName()).isEqualTo("test");
+    }
+
+    @Test
+    void whenFindByIdAndCustomerId_thenReturnCustomerInfo() {
+        Customer customer = new Customer();
+        Address address = new Address();
+
+        customer.setFirstName("test");
+        customer.setLastName("last");
+        customer.setEmail("test@mail.com");
+        customer.setPhoneNumber("25467");
+
+        address.setCustomer(customer);
+        address.setCity("Nairobi");
+        address.setCountry("Kenya");
+
+        testEntityManager.persist(customer);
+        testEntityManager.persist(address);
+        testEntityManager.flush();
+
+        List<Address> addressList = addressRepository.findAllByCity("Nairobi");
+        Long addressId = addressList.get(0).getId();
+        Long customerId = addressList.get(0).getCustomer().getId();
+
+        Optional<Address> found = addressRepository.findByIdAndCustomerId(addressId, customerId);
+        assertThat(found.isPresent());
     }
 }
