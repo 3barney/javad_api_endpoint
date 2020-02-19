@@ -25,9 +25,9 @@ To start the service
 ### Run The Service  
 * Navigate to root of project and start the service by executing
     * ```mvn clean compile && mvn clean package && mvn spring-boot:run```
-    * ```./mvnw clean compile```*
-    * ```./mvnw clean package```*
-    * ```./mvnw spring-boot:run```*
+    * ```./mvnw clean compile```
+    * ```./mvnw clean package```
+    * ```./mvnw spring-boot:run```
 
 ## Testing
 * To execute tests defined on this service do run
