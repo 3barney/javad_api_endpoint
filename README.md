@@ -31,5 +31,5 @@ To start the service
 
 ## Testing
 * To execute tests defined on this service do run
-    * ```mvn test```
+    * ```./mvnw test```
 
